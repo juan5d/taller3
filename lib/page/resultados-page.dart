@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ResultadosPage extends StatelessWidget {
@@ -9,7 +11,6 @@ class ResultadosPage extends StatelessWidget {
   Color color = Colors.white;
 
   ResultadosPage({this.edad, this.peso, this.estatura, this.genero});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,7 @@ class ResultadosPage extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(10, 20, 0, 20),
           child: Text(
             "Resultado",
-            style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
@@ -38,7 +39,7 @@ class ResultadosPage extends StatelessWidget {
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.grey[800],
+              color: Colors.grey.shade900,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,7 +48,7 @@ class ResultadosPage extends StatelessWidget {
                   child: Text(
                     "$resultado",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: color),
                   ),
@@ -55,13 +56,13 @@ class ResultadosPage extends StatelessWidget {
                 Center(
                   child: Text(
                     "$valor",
-                    style: TextStyle(fontSize: 90, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 75, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Center(
                   child: Text(
                     "$mensaje",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
                 )
@@ -82,7 +83,7 @@ class ResultadosPage extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         textStyle: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                     child: Text(
                       "Mostrar Resultados",
                       style: TextStyle(
@@ -96,33 +97,32 @@ class ResultadosPage extends StatelessWidget {
   }
 
   void _calculo() {
-    valor = estatura / 100;
-    valor *= valor;
+    valor = pow((estatura / 100), 2);
     valor = peso / valor;
     valor = double.parse(valor.toStringAsFixed(1));
     if (valor < 18.5) {
-      resultado = "Bajo peso".toUpperCase();
-      mensaje = "Tiene un peso corporal bajo. ¡Ten cuidado!";
+      resultado = "Bajo Peso".toUpperCase();
+      mensaje = "Se encuentra en un peso bajo para los datos ingresados";
       color = Colors.yellow;
     } else if (valor < 24.9) {
-      resultado = "Peso normal".toUpperCase();
-      mensaje = "Tiene un peso corporal normal. ¡Buen trabajo!";
+      resultado = "Peso Normal".toUpperCase();
+      mensaje = "Tiene un peso ideal para los datos ingresados";
       color = Colors.green;
     } else if (valor < 29.9) {
       resultado = "Sobrepeso".toUpperCase();
-      mensaje = "Tiene sobrepeso. ¡Es momento de tomar medidas!";
+      mensaje = "Se encuentra con un peso relativamente alto para sus datos ";
       color = Colors.yellow;
     } else if (valor < 34.5) {
-      resultado = "Obesidad grado I".toUpperCase();
-      mensaje = "Tiene obesidad nivel 1. ¡Ten cuidado, esto es una enfermedad!";
+      resultado = "Obesidad Grado I".toUpperCase();
+      mensaje = "Estado de obesidad grado I no adecuado";
       color = Colors.amber;
     } else if (valor < 39.9) {
-      resultado = "Obesidad grado II".toUpperCase();
-      mensaje = "Tiene obesidad nivel 2. ¡Mucho cuidado, esto es grave!";
+      resultado = "Obesidad Grado II".toUpperCase();
+      mensaje = "Su sobrepeso esta en grado II. Alerta!";
       color = Colors.orange;
     } else {
-      resultado = "Obesidad grado III".toUpperCase();
-      mensaje = "Tiene obesidad nivel 3. ¡Peligro, zona roja!";
+      resultado = "Obesidad Grado III".toUpperCase();
+      mensaje = "Se envuentra en obesidad mórbida o extrema";
       color = Colors.red;
     }
   }
